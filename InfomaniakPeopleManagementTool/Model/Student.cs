@@ -1,5 +1,4 @@
-﻿using System;
-using InfomaniakPeopleManagementTool.Model.Interface;
+﻿using InfomaniakPeopleManagementTool.Model.Interface;
 
 namespace InfomaniakPeopleManagementTool.Model
 {
@@ -21,10 +20,5 @@ namespace InfomaniakPeopleManagementTool.Model
         /// <param name="lastName"></param>
         public Student(string firstName, string lastName): base(firstName, lastName,0)
         {}
-
-        public int CompareTo(object obj)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

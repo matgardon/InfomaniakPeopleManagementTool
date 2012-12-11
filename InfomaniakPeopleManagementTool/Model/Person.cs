@@ -42,5 +42,22 @@ namespace InfomaniakPeopleManagementTool.Model
             this.lastName = lastName;
             this.id = id;
         }
+
+        public int CompareTo(IPerson other)
+        {
+            if (this.Id < other.Id) return -1;
+
+            return this.Id > other.Id ? 1 : 0; 
+            // If ids are both 0 (no id for students), then no guidelines are given => equals. 
+            // But we could consider sorting them by their family names if needed.
+        }
+
+        public bool Equals(IPerson other)
+        {
+            if (this.Id == 0 && other.Id == 0)// If both students have no ID, we compare on their first & last name.
+                return (this.FirstName.Equals(other.FirstName) && this.LastName.Equals(other.LastName));
+
+            return this.Id == other.Id;
+        }
     }
 }

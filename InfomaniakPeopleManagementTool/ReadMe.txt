@@ -33,6 +33,6 @@ Needed evolutions and what / how to do them :
 
 - Unit testing with NUnit & a mock framework => TDD ?
 - Internationalisation of strings & outputs
-- Automatic exports ?
+- Automatic exports to xml on each object modification ?
 - UI with MVVM + ViewModel
-- Bien noter que ils voulaient que ça soit fait en JAva mais justifier choix .NET pour le côté différent, certains trucs cools, + efficace dans ce language
+- Justifier choix .NET vs Java pour le côté différent, certains trucs cools, + efficace dans ce language

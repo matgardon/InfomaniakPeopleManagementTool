@@ -2,7 +2,7 @@
 
 namespace InfomaniakPeopleManagementTool.Model.Interface
 {
-    public interface IPerson
+    public interface IPerson : IEquatable<IPerson>,IComparable<IPerson>
     {
         /// <summary>
         /// unique ID of this person.
