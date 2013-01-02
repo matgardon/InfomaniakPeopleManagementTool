@@ -32,6 +32,8 @@ namespace InfomaniakPeopleManagementTool.Model
             set { this.isInternal = value; }
         }
 
+        public Teacher() {}
+
         public Teacher(string firstName, string lastName, int id, int salary, bool isInternal = true)
             : base(firstName, lastName, id)
         {

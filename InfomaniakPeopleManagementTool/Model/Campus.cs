@@ -10,33 +10,39 @@ namespace InfomaniakPeopleManagementTool.Model
     {
         #region fields
         
-        private readonly string city;
-        private readonly string region;
-        private readonly int capacity;
+        private string city;
+        private string region;
+        private int capacity;
 
         //We use sortedSet for lists of students and teachers : this enables us to guarantee two things :
         //
-        //-First, each person in those lists are unique as a Set can only accept unique element (implemented by Iequatable on IPerson). 
+        //- First, each person in those lists are unique as a Set can only accept unique element (implemented by Iequatable on IPerson). 
         //This means that we cannot have an unstable situation with a student or a teacher registered twice in this campus.
         //
-        //-Second, those sets are always sorted upon insertion and removal due to their implementation. 
+        //- Second, those sets are always sorted upon insertion and removal due to their implementation. 
         //So the condition on the list of students to be sorted is guaranteed at all times (as IPerson implements IComparable)
-        private readonly SortedSet<IStudent> students;
-        private readonly SortedSet<ITeacher> teachers;
+        private SortedSet<Student> students;
+        private SortedSet<Teacher> teachers;
 
         #endregion
 
         #region properties
 
-        public string City { get { return this.city; } }
+        public string City { get { return this.city; } set { this.city = value; } }
 
-        public string Region { get { return this.region; } }
+        public string Region { get { return this.region; } set { this.region = value; } }
 
-        public int Capacity { get { return this.capacity; } }
+        public int Capacity { get { return this.capacity; } set { throw new NotImplementedException("Capacity modification not supported");} }
+        // TODO set on capacity is not implemented because it would need a deeper validation : 
+        // if the capacity is reduced, constraints on the current number of students should be validated,
+        // and possible actions should be taken (deleting students ? not setting new capacity ?). 
+        // As these constraints are not defined in the specifications, it has been currently decided that the set throws an exception.
 
-        //Exposed fields are IEnumerable, hence they are read-only.
-        public IEnumerable<IStudent> Students { get { return this.students; } }
-        public IEnumerable<ITeacher> Teachers { get { return this.teachers; } }
+        // Exposed fields are used for Xml serialization, hence they have read & write access (for deserialization).
+        // TODO this exposes the list of students as a modifiable, while we don't want this behavior (getStudents returns a read-only collection). 
+        // The solution is for the Campus class to implement IXmlSerializable, which is too troublesome for this small project but should be done for fiability of the model.
+        public List<Student> Students { get { return this.students.ToList(); } set { this.students = new SortedSet<Student>(value); }}
+        public List<Teacher> Teachers { get { return this.teachers.ToList(); } set { this.teachers = new SortedSet<Teacher>(value); } }
 
         #endregion
 
@@ -64,15 +70,25 @@ namespace InfomaniakPeopleManagementTool.Model
             this.region = region;
             this.capacity = capacity;
 
-            this.students = new SortedSet<IStudent>();
-            this.teachers = new SortedSet<ITeacher>();
+            this.students = new SortedSet<Student>();
+            this.teachers = new SortedSet<Teacher>();
         }
 
         #endregion
 
         #region model related methods
 
-        public bool AddStudent(IStudent student)
+        public IReadOnlyCollection<IStudent> GetStudents()
+        {
+            return this.students.ToList().AsReadOnly();
+        }
+
+        public IReadOnlyCollection<ITeacher> GetTeachers()
+        {
+            return this.teachers.ToList().AsReadOnly();
+        }
+
+        public bool AddStudent(Student student)
         {
             if (student == null) throw new ArgumentNullException("student");
 
@@ -85,28 +101,28 @@ namespace InfomaniakPeopleManagementTool.Model
             return this.students.Add(student);
         }
 
-        public bool RemoveStudent(IStudent student)
+        public bool RemoveStudent(Student student)
         {
             if (student == null) throw new ArgumentNullException("student");
 
             return this.students.Contains(student) && this.students.Remove(student);
         }
 
-        public bool AddTeacher(ITeacher teacher)
+        public bool AddTeacher(Teacher teacher)
         {
             if (teacher == null) throw new ArgumentNullException("teacher");
 
             return !this.teachers.Contains(teacher) && this.teachers.Add(teacher);
         }
 
-        public bool RemoveTeacher(ITeacher teacher)
+        public bool RemoveTeacher(Teacher teacher)
         {
             if (teacher == null) throw new ArgumentNullException("teacher");
 
             return this.teachers.Contains(teacher) && this.teachers.Remove(teacher);
         }
 
-        public bool SetTeacherSalary(ITeacher teacher, int newSalary)
+        public bool SetTeacherSalary(Teacher teacher, int newSalary)
         {
             if (teacher == null)
                 throw new ArgumentNullException("teacher");

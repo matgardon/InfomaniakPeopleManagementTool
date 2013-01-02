@@ -24,43 +24,44 @@ namespace InfomaniakPeopleManagementTool.Model.Interface
         int Capacity { get; }
 
         /// <summary>
-        /// List of students belonging to this campus.
+        /// Retrieves a Read-only version of the list of students.
         /// </summary>
-        IEnumerable<IStudent> Students { get; }
-
+        /// <returns></returns>
+        IReadOnlyCollection<IStudent> GetStudents();
         /// <summary>
-        /// List of Teachers belonging to this campus.
+        /// Retrieves a Read-only version of the list of teachers (both internal & external).
         /// </summary>
-        IEnumerable<ITeacher> Teachers { get; } 
-
+        /// <returns></returns>
+        IReadOnlyCollection<ITeacher> GetTeachers(); 
+        
         /// <summary>
         /// Add a student (with or without ID) to this campus.
         /// This method throws a FullCampusException if the limit capacity is already reached before adding a student to this campus.
         /// </summary>
         /// <param name="student"> must be non-null. Otherwise, throws an ArgumentNullException.</param>
         /// <returns>true if the student was correctly added. false if the student was already present.</returns>
-        bool AddStudent(IStudent student);
+        bool AddStudent(Student student);
 
         /// <summary>
         /// Remove a student (with or without ID) from this campus.
         /// </summary>
         /// <param name="student"> must be non-null. Otherwise, throws an ArgumentNullException.</param>
         /// <returns>true if the student was correctly removed. false if the student was not found in this campus.</returns>
-        bool RemoveStudent(IStudent student);
+        bool RemoveStudent(Student student);
 
         /// <summary>
         /// Add a teacher (internal or external) to this campus.
         /// </summary>
         /// <param name="teacher">must be non-null. Otherwise, throws an ArgumentNullException.</param>
         /// <returns>true if the teacher was correctly added. false if the teacher was already present.</returns>
-        bool AddTeacher(ITeacher teacher);
+        bool AddTeacher(Teacher teacher);
 
         /// <summary>
         /// Remove a teacher (internal or external) from this campus.
         /// </summary>
         /// <param name="teacher">must be non-null. Otherwise, throws an ArgumentNullException.</param>
         /// <returns>true if the teacher was correctly removed. false if the teacher was not found in this campus.</returns>
-        bool RemoveTeacher(ITeacher teacher);
+        bool RemoveTeacher(Teacher teacher);
 
         /// <summary>
         /// Set a salary for an external teacher. returns false if the teacher is internal.
@@ -69,7 +70,7 @@ namespace InfomaniakPeopleManagementTool.Model.Interface
         /// <param name="teacher">must be non-null. Otherwise, throws an ArgumentNullException.</param>
         /// <param name="newSalary"> must be > 0. Otherwise, throws an ArgumentException.</param>
         /// <returns>True if the teacher's salary was correctly set. False if the teacher was not found on this campus or if the teacher is internal.</returns>
-        bool SetTeacherSalary(ITeacher teacher, int newSalary);
+        bool SetTeacherSalary(Teacher teacher, int newSalary);
 
         /// <summary>
         /// Set the salary for all internal teachers.

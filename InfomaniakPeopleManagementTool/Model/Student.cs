@@ -5,6 +5,8 @@ namespace InfomaniakPeopleManagementTool.Model
 {
     public class Student : Person, IStudent
     {
+        private Student(){}
+
         /// <summary>
         /// Create a student which already has an ID.
         /// </summary>

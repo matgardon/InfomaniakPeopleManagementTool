@@ -6,8 +6,8 @@ namespace InfomaniakPeopleManagementTool.Model
     public abstract class Person : IPerson
     {
         private int id;
-        private readonly string firstName;
-        private readonly string lastName;
+        private string firstName;
+        private string lastName;
 
         public int Id
         {
@@ -23,9 +23,14 @@ namespace InfomaniakPeopleManagementTool.Model
             }
         }
 
-        public string FirstName { get { return this.firstName; } }
+        public string FirstName { get { return this.firstName; } set { firstName = value; }
+        }
 
-        public string LastName { get { return this.lastName; } }
+        public string LastName { get { return this.lastName; } set { lastName = value; }
+        }
+
+        // parameter-less ctor for serialization
+        protected Person() {}
 
         /// <summary>
         /// 

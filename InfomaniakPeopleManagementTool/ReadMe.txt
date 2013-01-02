@@ -12,6 +12,8 @@ Choix d'implémentation :
 - Student : ID read/write mais nom/prénom read-only 
 - Teacher : ID read-only ? (pas spécifié donc on suppose unique et ne change pas) + nom/prénom read only
 - Program : can create student, professor, campus + delete them =>should delete all entites or not ?
+- Fields as read & write instead of read-only : justifier par nécessité pour serialization Xml
+- Autoriser le changement des valeurs pour nom, city, region etc fields : ok dans la mesure ou pas d'implications sur comportement de l'appli (sauf capacity car besoin de specs fonctionnelles supp.) - à justifier
 
 TODO
 
@@ -21,6 +23,7 @@ Comment les recharger ensuite ? dans quelle structure d'appli pour les lire et r
 - How to handle unique IDs ? comment est-ce que chaque nouvelle personne peut avoir une ID unique ?
 - Implémenter comparable + tri automatique : ordered set ?
 - Implémenter interface en ligne de commande : classe à part ? dans program.cs ? où mettre les actions de création ? validation des paramètres ? autre ?
+- Serializer Xml : ajouter gestion UTF8 etc 
 
 Liste des contraintes et comment sont-elles respectées :
 
