@@ -27,6 +27,12 @@ namespace InfomaniakPeopleManagementTool.Model
 
         public string LastName { get { return this.lastName; } }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="id"></param>
         protected Person(string firstName, string lastName, int id)
         {
             if (String.IsNullOrEmpty(firstName))
@@ -58,6 +64,11 @@ namespace InfomaniakPeopleManagementTool.Model
                 return (this.FirstName.Equals(other.FirstName) && this.LastName.Equals(other.LastName));
 
             return this.Id == other.Id;
+        }
+
+        public override string ToString()
+        {
+            return "Id: " + this.id + " firstName: " + this.firstName + " lastName: " + this.lastName;
         }
     }
 }

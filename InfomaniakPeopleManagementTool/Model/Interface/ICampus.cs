@@ -11,10 +11,10 @@ namespace InfomaniakPeopleManagementTool.Model.Interface
         string City { get; }
 
         /// <summary>
-        /// County to which this campus' city belongs.
+        /// Region to which this campus' city belongs.
         /// This property cannot be null or empty.
         /// </summary>
-        string County { get; }
+        string Region { get; }
 
         /// <summary>
         /// Maximum number of students for this campus.

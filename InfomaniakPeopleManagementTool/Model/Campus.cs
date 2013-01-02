@@ -11,7 +11,7 @@ namespace InfomaniakPeopleManagementTool.Model
         #region fields
         
         private readonly string city;
-        private readonly string county;
+        private readonly string region;
         private readonly int capacity;
 
         //We use sortedSet for lists of students and teachers : this enables us to guarantee two things :
@@ -30,7 +30,7 @@ namespace InfomaniakPeopleManagementTool.Model
 
         public string City { get { return this.city; } }
 
-        public string County { get { return this.county; } }
+        public string Region { get { return this.region; } }
 
         public int Capacity { get { return this.capacity; } }
 
@@ -42,17 +42,26 @@ namespace InfomaniakPeopleManagementTool.Model
 
         #region ctor
 
-        public Campus(string city, string county, int capacity = 0)
+        // only used for serialization
+        private Campus() {}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="city"></param>
+        /// <param name="region"></param>
+        /// <param name="capacity"></param>
+        public Campus(string city, string region, int capacity = 0)
         {
             if (string.IsNullOrEmpty(city))
                 throw new ArgumentNullException("city");
-            if (string.IsNullOrEmpty(county))
-                throw new ArgumentNullException("county");
+            if (string.IsNullOrEmpty(region))
+                throw new ArgumentNullException("region");
             if (capacity < 0)
                 throw new ArgumentException("capacity cannot be negative");
 
             this.city = city;
-            this.county = county;
+            this.region = region;
             this.capacity = capacity;
 
             this.students = new SortedSet<IStudent>();
@@ -134,7 +143,12 @@ namespace InfomaniakPeopleManagementTool.Model
 
         public bool Equals(ICampus other)
         {
-            return this.City.Equals(other.City) && this.County.Equals(other.County);
+            return this.City.Equals(other.City) && this.Region.Equals(other.Region);
+        }
+
+        public override string ToString()
+        {
+            return "City : "+this.city+" Region: "+this.region+" Capacity: "+this.capacity;
         }
     }
 }

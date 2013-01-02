@@ -3,12 +3,10 @@
 - Interfaces par dessus les classes pour plus de découplage et pour limiter la visibilité
 - Interface + classe abstraire ? IPerson pour les champs communs professors / students
 - Noms en anglais car méthodes en anglais + convention quand on code ... 
-- Nom teacher -> professor (teachers are not in campus, professors are ...)
-- NUnit tests ?
 
 Choix d'implémentation :
 
-- Campus : city, county, capacity ->read only pcq fonctionnellement cohérent + pas de risques de péter les conditions avec students existants
+- Campus : city, county, capacity -> read only pcq fonctionnellement cohérent + pas de risques de péter les conditions avec students existants
 - Campus : can add professors, does not need to know which are of which kind. can change salaries of all internal professors + change salaries of external professors but return false if professor is internal 
 	=> change that and introduce class of type internal so that only internal professors kind are accepted when changing salary method ? + better coherence with constraints 
 - Student : ID read/write mais nom/prénom read-only 
@@ -36,3 +34,4 @@ Needed evolutions and what / how to do them :
 - Automatic exports to xml on each object modification ?
 - UI with MVVM + ViewModel
 - Justifier choix .NET vs Java pour le côté différent, certains trucs cools, + efficace dans ce language
+- Ajouter validation des entrées / paramètres pour créer des objets plus robuste, via UI & feedback etc

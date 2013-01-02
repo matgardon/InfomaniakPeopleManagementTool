@@ -23,6 +23,9 @@ namespace InfomaniakPeopleManagementTool.Model
             }
         }
 
+        // This could be an auto-property, but in a real application, it is supposed to evolve 
+        // so that an external teacher can become an internal one and vice-versa. 
+        // That's why this stays as a normal property with a backing private field.
         public bool IsInternal
         {
             get { return this.isInternal; }
@@ -37,6 +40,11 @@ namespace InfomaniakPeopleManagementTool.Model
 
             this.salary = salary;
             this.isInternal = isInternal;
+        }
+
+        public override string ToString()
+        {
+            return "Teacher - "+base.ToString()+" Salary: "+this.salary+" IsInternal: "+this.isInternal;
         }
     }
 }
